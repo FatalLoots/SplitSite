@@ -275,7 +275,7 @@
       payload.take.forEach(({n, v}) => message += `- ${n} (${v})\n`);
       message += `\n🕒 **Remain:**\n`;
       payload.remain.forEach(({n, v}) => message += `- ${n} (${v})\n`);
-      message += `\n🔗 example link.com`;
+      message += `\n🔗 https://fatalloots.github.io/SplitSite/`;
 
       fetch(webhookURL, {
         method: "POST",
