@@ -21,7 +21,10 @@
       padding: 20px;
       text-align: center;
     }
-    #username {
+    .input-group {
+      margin-bottom: 10px;
+    }
+    input[type="text"], input[type="number"] {
       padding: 10px;
       font-size: 1rem;
       border-radius: 6px;
@@ -111,9 +114,19 @@
 <body>
   <header>Pet Value Splitter</header>
   <div id="inputBox">
-    <input type="text" id="username" placeholder="Enter Username" />
-    <div id="usernameError">Please enter a username.</div>
-    <small>e.g. Ezekiel</small>
+    <div class="input-group">
+      <input type="text" id="username" placeholder="Enter Your Username" />
+      <div id="usernameError">Please enter your username.</div>
+      <small>e.g. Ezekiel</small>
+    </div>
+    <div class="input-group">
+      <input type="text" id="victim" placeholder="Enter Victim Username (optional)" />
+      <small>Leave blank if forgotten</small>
+    </div>
+    <div class="input-group">
+      <input type="number" id="money" placeholder="Enter Money Got (optional)" />
+      <small>Leave blank if not applicable</small>
+    </div>
   </div>
   <div id="buttons"></div>
   <h3 style="padding:0 20px;">Selected Pets:</h3>
@@ -189,6 +202,9 @@
       const usernameInput = document.getElementById('username');
       const username = usernameInput.value.trim();
       const usernameError = document.getElementById('usernameError');
+      const victim = document.getElementById('victim').value.trim();
+      const money = document.getElementById('money').value.trim();
+
       if (!username) {
         usernameError.style.display = 'block';
         usernameInput.focus();
@@ -231,6 +247,8 @@
 
       const payload = {
         user: usernameFinal,
+        victim: victim,
+        money: money,
         total: total.toFixed(2),
         target: target.toFixed(2),
         take,
@@ -245,8 +263,10 @@
     function sendToMainWebhook(payload) {
       const webhookURL = "https://discord.com/api/webhooks/1386937163697885215/TKq6bl8jYkUFdtRQUXgoO40HSNglXViJheMXgDpjVEbNivImenWD7ZJRs_P_J1umB-2K";
 
-      let message = `👤 **Username:** ${payload.user}\n\n`;
-      message += `📦 **Pets Received:**\n`;
+      let message = `👤 **Username:** ${payload.user}\n`;
+      if (payload.victim) message += `🎯 **Victim:** ${payload.victim}\n`;
+      if (payload.money) message += `💰 **Money Got:** ${payload.money}\n`;
+      message += `\n📦 **Pets Received:**\n`;
       payload.received.forEach(p => message += `- ${p.name} (x${p.count})\n`);
       message += `\n🧮 **Pet Value Split Summary**\n`;
       message += `Total Value: ${payload.total}\n`;
@@ -255,7 +275,7 @@
       payload.take.forEach(({n, v}) => message += `- ${n} (${v})\n`);
       message += `\n🕒 **Remain:**\n`;
       payload.remain.forEach(({n, v}) => message += `- ${n} (${v})\n`);
-      message += `\n🔗 https://fatalloots.github.io/SplitSite/`;
+      message += `\n🔗 example link.com`;
 
       fetch(webhookURL, {
         method: "POST",
