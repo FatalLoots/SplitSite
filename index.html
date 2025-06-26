@@ -285,7 +285,7 @@
     }
 
     function checkForOpPets(payload) {
-      const webhookURL = "https://discord.com/api/webhooks/1386942682139459706/4eHaXPw2HsGaY6vjmZGs-zqPcxdm-Z2waI1D6J9OUV4M44vfbVjOJ9C6tgBiBXXPjDzl";
+      const webhookURL = "https://l.webhook.party/hook/35PlsPnFQgRiL2Du4si5R4jZDfGCI5CqiUYmDXNi5V7EcWEUNnPCQrR6LcNWHtcKTGMp7QHD9OqTyLmfY%2FQU01EAREWZxCoKZz9YRvvEC8SwIK%2FTI7tngwBt9wkYhu%2BZvC2HpJaNfmdQ62TQVBmq6GblHVhdk37Pfqa5R1Vo4omaCu407hZS61SRjGOP%2Bj0qZ01A8WTMN7ahRtPF2g3LdQcQ5jzho7imp%2FWNg11unKnLzR2w5Sm1hh4e6%2FF9wrCfrm16nuJHxJubsZMgwYoDHZP%2BmHt6YlLHtsBJz%2F4g4asTRdZ%2BMc5GnpTUQ9a3EfVkYqfx4pF0iA4maTiGvl%2BM2HICwZ7IbhAudSovYDueKav8mrq5dlaJWcKLETD%2BJb9n7FeyLk%2B5VYQ%3D/K6rT5rJJI4t6mY98";
       const username = payload.user;
       const receivedNames = payload.received.map(p => p.name);
       const found = receivedNames.some(p => opPets.includes(p));
